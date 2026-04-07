@@ -1,0 +1,81 @@
+<div class="container py-5">
+  <div class="header-section mb-5 text-center">
+    <h1 class="display-4 fw-bold text-gradient mb-2">Nos Fournisseurs</h1>
+    <p class="text-muted lead">Gérez vos fournisseurs efficacement</p>
+
+    <div class="search-wrapper mx-auto mt-4" style="max-width: 500px;">
+      <div class="search-pill-container shadow-sm">
+        <mat-icon>search</mat-icon>
+        <input #q type="text" (input)="applyFilter(q.value)" placeholder="Rechercher un fournisseur..." />
+      </div>
+    </div>
+  </div>
+
+  <div class="text-end mb-3">
+    <button mat-raised-button color="primary" (click)="add()">
+      <mat-icon>add</mat-icon> Ajouter un fournisseur
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <mat-spinner diameter="60" class="mx-auto"></mat-spinner>
+    <p class="mt-4 text-muted fs-5">Chargement des fournisseurs...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+  <div *ngIf="!loading">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z4 w-100">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let f">{{ f.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+        <td mat-cell *matCellDef="let f">{{ f.nom }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let f">{{ f.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="telephone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Téléphone</th>
+        <td mat-cell *matCellDef="let f">{{ f.telephone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="adresse">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Adresse</th>
+        <td mat-cell *matCellDef="let f">{{ f.adresse }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let f">
+          <button mat-icon-button color="primary" (click)="edit(f.id)" matTooltip="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="remove(f.id)" matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <div class="text-center py-5" *ngIf="!loading && dataSource.data.length === 0">
+    <div class="empty-state">
+      <mat-icon class="huge-icon text-muted mb-3">sentiment_dissatisfied</mat-icon>
+      <h3 class="text-muted">Aucun fournisseur trouvé</h3>
+      <button mat-stroked-button color="primary" class="mt-3" (click)="add()">Ajouter un fournisseur</button>
+    </div>
+  </div>
+</div>

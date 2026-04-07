@@ -1,0 +1,40 @@
+<div class="auth-container">
+  <mat-card class="auth-card mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>Connexion</mat-card-title>
+      <mat-card-subtitle>Accédez à votre compte</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="votre@email.com">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">L'email est requis</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Format d'email invalide</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Le mot de passe est requis</mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Minimum 6 caractères</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="submit-btn" [disabled]="loginForm.invalid || loading">
+          <span *ngIf="!loading">Se Connecter</span>
+          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        </button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer class="auth-footer">
+      <span>Pas encore de compte ?</span>
+      <button mat-button color="accent" routerLink="/register">S'inscrire</button>
+    </mat-card-footer>
+  </mat-card>
+</div>

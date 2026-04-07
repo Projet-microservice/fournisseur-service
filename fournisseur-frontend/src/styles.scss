@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(1200px 600px at -10% -10%, rgba(217, 208, 197, 0.18), transparent),
+    radial-gradient(1000px 500px at 110% 0%, rgba(226, 220, 210, 0.18), transparent),
+    #f7f3ef;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 12px;
+}
+
+.pill-btn {
+  border-radius: 9999px;
+  border: none;
+  background: #f4f4f5;
+  color: #111827;
+  padding: 10px 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, opacity .15s ease;
+}
+.pill-btn.primary,
+.pill-btn.accent {
+  background: #f4f4f5;
+  color: #111827;
+}
+.pill-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,0.12); background: #f8f9fa; }
+.pill-btn:active { transform: translateY(0); opacity: .95; }
+.search-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.12);
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.search-pill input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 220px;
+  font-size: 14px;
+}
+.search-pill mat-icon { color: #6b7280; }
+.search-pill:focus-within { box-shadow: 0 12px 24px rgba(17, 24, 39, 0.18); transform: translateY(-1px); }
